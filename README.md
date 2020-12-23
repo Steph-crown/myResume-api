@@ -1,1 +1,1 @@
-## <span style="color: #949494;">text</span>
+## <span style="color: red;">text</span>
