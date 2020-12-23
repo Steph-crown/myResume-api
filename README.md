@@ -1,4 +1,4 @@
-## <span style="color: red;">text</span># Color Test Document
+# Color Test Document
 
 <style>H1{color:Blue;}</style>
 <style>H2{color:DarkOrange;}</style>
