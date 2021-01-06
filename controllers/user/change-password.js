@@ -1,4 +1,4 @@
-const User = require('../../models/user.model');
+const User = require('../../models/dashboard.model');
 const bcrypt = require('bcrypt');
 const SALT_ROUND = 10;
 const mailSender = require('./../../utilities/mail-sender')

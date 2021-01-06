@@ -2,28 +2,10 @@ const mongoose = require('mongoose');
 
 const schema = 
     {
-        firstName: {
-            type: String,
-            minLength: 3,
-            required: [true, 'No `firstName` key in request'],
-            trim: true
-        },
-        lastName: {
-            type: String,
-            minLength:3,
-            required: [true, 'No `lastName` key in request'],
-            trim: true
-        },
         email: {
             type: String,
             required: [true, 'No `email` key in  request'],
             trim: true,
-        },
-        password: {
-            type: String,
-            minLength: 4,
-            trim: true,
-            required: [true, 'No `password` key in request']
         },
         dashboard: {
             profiles: [
@@ -147,14 +129,14 @@ const schema =
         }
     }
 
-const userSchema = mongoose.Schema(schema);
+const dashboardSchema = mongoose.Schema(schema);
 
 let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
  
 // Validates the email.
-userSchema.path('email').validate(function (email) {
+dashboardSchema.path('email').validate(function (email) {
     return emailRegex.test(email); // Assuming email has a text attribute
  }, 'The e-mail is not a valid e-mail.')
 
 
-module.exports = mongoose.model('users', userSchema)
+module.exports = mongoose.model('dashboard', dashboardSchema)

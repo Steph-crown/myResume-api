@@ -1,4 +1,4 @@
-const User = require('./../../models/user.model');
+const User = require('../../models/dashboard.model');
 const generatePassword = require('./../../utilities/password-generator')
 const bcrypt = require('bcrypt');
 const SALT_ROUND = 10;

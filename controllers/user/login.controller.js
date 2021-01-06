@@ -1,23 +1,33 @@
-const User = require('../../models/user.model');
+const User = require('../../models/users.model');
+const UserDashboard = require('./../../models/dashboard.model');
 const bcrypt = require('bcrypt');
 
 
 module.exports = function(req, res, next) {
-
+    let email = {email: req.body.email};
     // Checks if the email and corresponding password is in the database
-    User.findOne({
-        email: req.body.email
-    })
-        .select('dashboard password')
+    User.findOne(email)
+        .select('password')
             .exec((err, data) => {
                 if (data) {
 
                     // compares req password with hashed password
                     bcrypt.compare(req.body.password, data.password, function(err, result) {
                         if (result) {
-                            res.status(200).json({
-                                status: 200,
-                                data: data
+
+                            // Fetches the user's dashboard
+                            UserDashboard.findOne(email).exec((err, data) => {
+                                if (err) {
+                                    res.json({
+                                        status: 400,
+                                        error: "Error getting Dashboard"
+                                    });
+                                }else {
+                                    res.status(200).json({
+                                        status: 200,
+                                        data: data
+                                    })
+                                }
                             })
                         }else  {
                             res.json({
@@ -29,7 +39,7 @@ module.exports = function(req, res, next) {
                 }else {
                     res.status(400).json({
                         status: 400,
-                        error: "Email and password not found"
+                        error: "Email not found"
                     });
                 };
             })

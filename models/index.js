@@ -1,4 +1,3 @@
-// const users = require('./user.model');
 // TO CONNECT THE DATABASE
 // Mongo client
 const mongoose = require('mongoose');
