@@ -1,4 +1,4 @@
-const User = require('../../models/dashboard.model');
+const User = require('../../models/users.model');
 const generatePassword = require('./../../utilities/password-generator')
 const bcrypt = require('bcrypt');
 const SALT_ROUND = 10;
@@ -24,10 +24,11 @@ module.exports = function (req, res, next) {
                         let update = {password: hash};
                         let options = {new: true};
 
-                        // Finds user email and updates the password to new generated password
+                        // Finds user email and updates the password to newly generated password
                         User.findOneAndUpdate(filter, update, options, (err, data) => {
                             if (data) {
-                                // Sends a mail to the sign up email.
+
+                                // Sends new password to the sign up email .
                                 mailSender("This is a your new password", newPassword, function(err, data) {
                                     if (err) console.log(err);
                                     else console.log(data)
@@ -45,7 +46,6 @@ module.exports = function (req, res, next) {
                         });
                     }
                 })
-            // res.json()
             });
         }
     })
