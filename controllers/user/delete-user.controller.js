@@ -1,9 +1,14 @@
 const User = require('../../models/users.model');
+const UserDashboard = require('./../../models/dashboard.model');
+
 const bcrypt = require('bcrypt');
 
 module.exports = function(req, res, next) {
 
-    User.findOne({email: req.body.email}, (err, data) =>{
+    let email = {email: req.body.email};
+
+    // Finds the user
+    User.findOne(email, (err, data) =>{
         if (data) {
             // compares req password with hashed password
             bcrypt.compare(req.body.password, data.password, function(err, result) {
@@ -15,7 +20,13 @@ module.exports = function(req, res, next) {
                         password: data.password
                     }, function(err, data) {
                         if (data) {
-                            res.json(data);
+
+                            // Finds the user's dashboard and deletes
+                            UserDashboard.findOneAndDelete(email, (err, data) => {
+                                if (err) res.json(err); 
+                                else res.json(data);
+                            });
+                
                         }else {
                             res.json(err)
                         };
