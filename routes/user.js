@@ -22,7 +22,7 @@ router.post('/recover-password', require('./../controllers/user/recover-password
 router.post('/delete-user', require('../controllers/user/delete-user.controller'));
 
 // CHANGE PASSWORD
-router.post('/change-password', require('./../controllers/user/change-password'))
+router.post('/change-password', require('../controllers/user/change-password.controller'))
 
 
 module.exports = router;
