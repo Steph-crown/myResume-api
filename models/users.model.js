@@ -5,7 +5,7 @@ const schema =
         name: {
             type: String,
             minLength:3,
-            required: [true, 'No `lastName` key in request'],
+            required: [true, 'No `name` key in request'],
             trim: true
         },
         email: {

@@ -1,4 +1,4 @@
-const User = require('../../models/dashboard.model');
+const User = require('../../models/users.model');
 const bcrypt = require('bcrypt');
 
 module.exports = function(req, res, next) {

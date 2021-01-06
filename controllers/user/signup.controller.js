@@ -51,14 +51,13 @@ module.exports = function(req, res, next) {
                                                 status: 200,
                                                 data: data
                                             });
+
+                                            // Sends a mail to the sign up email.
+                                            mailSender("This is a header", "this is body", function(err, data) {
+                                                if (err) console.log(err);
+                                                else console.log(data)
+                                            })
                                         }
-                                    })
-
-
-                                    // Sends a mail to the sign up email.
-                                    mailSender("This is a header", "this is body", function(err, data) {
-                                        if (err) console.log(err);
-                                        else console.log(data)
                                     })
                                 }
                             })
