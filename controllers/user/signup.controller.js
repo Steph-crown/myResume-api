@@ -38,10 +38,6 @@ module.exports = function(req, res, next) {
                             newUser.save((err, data) => {
                                 if (err) res.status(400).json(err);
                                 else {
-                                    res.status(200).json({
-                                        status: 200,
-                                        data: data
-                                    });
 
                                     // Creates and saves a dashboard for the user
                                     newUserDashboard.save((err, data) => {
