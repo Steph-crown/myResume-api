@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const schema = 
     {
+        name: {
+            type: String,
+            required: true,
+            trim: true
+        },
         email: {
             type: String,
             required: [true, 'No `email` key in  request'],

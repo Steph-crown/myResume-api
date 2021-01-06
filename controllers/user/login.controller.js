@@ -7,7 +7,6 @@ module.exports = function(req, res, next) {
     let email = {email: req.body.email};
     // Checks if the email and corresponding password is in the database
     User.findOne(email)
-        .select('password')
             .exec((err, data) => {
                 if (data) {
 

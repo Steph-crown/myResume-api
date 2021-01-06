@@ -10,6 +10,7 @@ const SALT_ROUND = 10;
 module.exports = function(req, res, next) {
     let newUser = new User(req.body);
     let newUserDashboard = new UserDashboard({
+        name: req.body.name,
         email: req.body.email,
         dashboard: null
     })
