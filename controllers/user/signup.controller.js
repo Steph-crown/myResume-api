@@ -13,22 +13,23 @@ module.exports = function(req, res, next) {
         name: req.body.name,
         email: req.body.email,
         dashboard: null
-    })
+    });
 
-    // Ensures email is in the database before saving signing the user up
-    User.findOne({email: req.body.email})
+    if (!req.body.name) res.status(200).json({error: "No name"});
+    else if (!req.body.email) res.status(200).json({error: "No email"});
+    else if (!req.body.password) res.status(200).json({error: "No password"})
+
+    else {
+        // Ensures email is in the database before saving signing the user up
+        User.findOne({email: req.body.email})
         .exec((err, data) => {
             if (data) {
-                res.status(400).json({
-                    status: 400,
+                res.status(200).json({
                     error: "Email Registered"
                 })
             }else {
-                
-
                 // GENERATES SALT FOR HASHING
                 bcrypt.genSalt(SALT_ROUND, function(err, salt) {
-
                     // HASHES PASSWORD
                     bcrypt.hash(req.body.password, salt, function(err, hash) {
                         if (err) res.json(err);
@@ -37,12 +38,16 @@ module.exports = function(req, res, next) {
 
                             // Saves the user
                             newUser.save((err, data) => {
-                                if (err) res.status(400).json(err);
+                                if (err) res.status(400).json({
+                                    error: "Error saving data"
+                                });
                                 else {
 
                                     // Creates and saves a dashboard for the user
                                     newUserDashboard.save((err, data) => {
-                                        if (err) res.status(400).json(err);
+                                        if (err) res.status(400).json({
+                                            error: "Error saying data"
+                                        });
                                         else {
                                             res.status(200).json({
                                                 status: 200,
@@ -63,6 +68,7 @@ module.exports = function(req, res, next) {
                 });
             };
         })
+    }
 };
 
 
